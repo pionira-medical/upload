@@ -53,12 +53,6 @@ GIT
       warden (~> 1.2.3)
 
 GIT
-  remote: git://github.com/rails/arel.git
-  revision: 38321b114e87a2fc8560f7651890aa1b7c2c2362
-  specs:
-    arel (5.0.0.20140210193626)
-
-GIT
   remote: git://github.com/rails/coffee-rails.git
   revision: 4a0ad7630602589b8b9646c438eb0e73f74368f7
   specs:
@@ -135,6 +129,7 @@ GEM
   specs:
     arbre (1.0.1)
       activesupport (>= 3.0.0)
+    arel (5.0.0)
     atomic (1.1.14)
     bcrypt-ruby (3.1.2)
     bourbon (3.1.8)
@@ -216,7 +211,7 @@ PLATFORMS
 
 DEPENDENCIES
   activeadmin!
-  arel!
+  arel (>= 5.0.0)
   coffee-rails!
   devise!
   formtastic!

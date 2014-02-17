@@ -1,8 +1,8 @@
 source 'https://rubygems.org'
 
 gem 'rails',            github: "rails/rails"
-gem 'arel',             github: "rails/arel"
-
+# gem 'arel',             github: "rails/arel"
+gem 'arel', '>= 5.0.0'
 # Use sqlite3 as the database for Active Record
 gem 'sqlite3'
 
