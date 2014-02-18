@@ -3,6 +3,7 @@ class CreateOrders < ActiveRecord::Migration
     create_table :orders do |t|
       t.text :description
       t.integer :order_number
+      t.text :security_key
       t.references :admin_user
 
       t.timestamps

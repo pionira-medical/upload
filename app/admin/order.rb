@@ -7,6 +7,11 @@ ActiveAdmin.register Order do
   end
 
   form do |f|
+    f.inputs "Content" do
+      f.input :order_number
+      f.input :security_key
+      f.input :description
+    end
     f.inputs "Contact", for: [:user, f.object.build_user] do |uf|
         uf.input :gender
         uf.input :academic_title
@@ -32,9 +37,6 @@ ActiveAdmin.register Order do
         af.input :phone
         af.input :reference
       end
-    end
-    f.inputs "Content" do
-      f.input :description
     end
     f.actions
   end

@@ -70,6 +70,7 @@ ActiveRecord::Schema.define(version: 20140218111515) do
   create_table "orders", force: true do |t|
     t.text     "description"
     t.integer  "order_number"
+    t.text     "security_key"
     t.integer  "admin_user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
