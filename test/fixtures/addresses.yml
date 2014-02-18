@@ -1,0 +1,37 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  type: 
+  first_name: MyString
+  last_name: MyString
+  academic_title: MyString
+  gender: MyString
+  hospital: MyString
+  department: MyString
+  street_1: MyString
+  street_2: MyString
+  zip: 1
+  city: MyString
+  country: MyString
+  email: MyString
+  phone: MyString
+  reference: MyString
+  order: 
+
+two:
+  type: 
+  first_name: MyString
+  last_name: MyString
+  academic_title: MyString
+  gender: MyString
+  hospital: MyString
+  department: MyString
+  street_1: MyString
+  street_2: MyString
+  zip: 1
+  city: MyString
+  country: MyString
+  email: MyString
+  phone: MyString
+  reference: MyString
+  order: 
