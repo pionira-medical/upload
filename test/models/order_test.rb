@@ -50,14 +50,6 @@ class OrderTest < ActiveSupport::TestCase
     assert order.addresses.size > 0
     assert_equal order_params[:addresses_attributes].size, order.addresses.size
   end
-  
-  def test_create_order_with_addresses
-    order_params = @order_params
-    order_params[:addresses_attributes] = @addresses
-    assert order = Order.create!(@order_params)
-    assert !@order_params[:addresses_attributes].empty?
-    assert_equal @order_params[:addresses_attributes].size, order.addresses.size
-  end
 
   def test_update_order
     order = Order.create(@order_params)
