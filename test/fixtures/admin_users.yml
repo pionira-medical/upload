@@ -7,4 +7,4 @@
 admin:
   id: 1
   email: admin@example.com
-  encrypted_password: password 
+  encrypted_password: password
