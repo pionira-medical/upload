@@ -53,9 +53,9 @@ ActiveAdmin.register Order do
       row :order_number
       row :security_key
       row :description
-      row 'Customer' { |o| "#{o.user.academic_title} #{o.user.first_name} #{o.user.last_name}" }
-      row 'E-Mail' { |o| o.user.email }
-      row 'Admin' { |o| o.admin_user.email }
+      row 'Customer' do |o| "#{o.user.academic_title} #{o.user.first_name} #{o.user.last_name}" end
+      row 'E-Mail' do |o| o.user.email end
+      row 'Admin' do |o| o.admin_user.email end
     end
     active_admin_comments
   end

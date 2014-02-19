@@ -1,7 +1,7 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  type: 
+  title: MyString
   first_name: MyString
   last_name: MyString
   academic_title: MyString
@@ -19,7 +19,7 @@ one:
   order_id: 1
 
 two:
-  type: 
+  title: MyString
   first_name: MyString
   last_name: MyString
   academic_title: MyString
