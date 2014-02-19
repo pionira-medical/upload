@@ -1,11 +1,11 @@
 class Order < ActiveRecord::Base
-  has_many :addresses
-  has_one :user
   belongs_to :admin_user
-  accepts_nested_attributes_for :addresses
+  has_one :user
+  has_many :addresses
+  accepts_nested_attributes_for :addresses, allow_destroy: true
   accepts_nested_attributes_for :user
 
-  before_create :complete_user
+  before_validation :complete_user
 
   private
   def complete_user

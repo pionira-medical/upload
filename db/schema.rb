@@ -29,11 +29,13 @@ ActiveRecord::Schema.define(version: 20140218111515) do
   add_index "active_admin_comments", ["resource_type", "resource_id"], name: "index_active_admin_comments_on_resource_type_and_resource_id"
 
   create_table "addresses", force: true do |t|
-    t.string   "type"
+    t.string   "title"
+    t.string   "gender"
+    t.string   "academic_title"
     t.string   "first_name"
     t.string   "last_name"
-    t.string   "academic_title"
-    t.string   "gender"
+    t.string   "email"
+    t.string   "phone"
     t.string   "hospital"
     t.string   "department"
     t.string   "street_1"
@@ -41,8 +43,6 @@ ActiveRecord::Schema.define(version: 20140218111515) do
     t.integer  "zip"
     t.string   "city"
     t.string   "country"
-    t.string   "email"
-    t.string   "phone"
     t.string   "reference"
     t.integer  "order_id"
     t.datetime "created_at"
@@ -70,7 +70,7 @@ ActiveRecord::Schema.define(version: 20140218111515) do
   create_table "orders", force: true do |t|
     t.text     "description"
     t.integer  "order_number"
-    t.text     "security_key"
+    t.string   "security_key"
     t.integer  "admin_user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -96,7 +96,7 @@ ActiveRecord::Schema.define(version: 20140218111515) do
     t.datetime "updated_at"
   end
 
-  add_index "users", ["email"], name: "index_users_on_email", unique: true
+  add_index "users", ["email"], name: "index_users_on_email"
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
 
 end
