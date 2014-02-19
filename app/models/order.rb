@@ -9,7 +9,7 @@ class Order < ActiveRecord::Base
 
   private
   def complete_user
-    self.user.id = self.order_number
-    self.user.password = self.security_key
+    user.id = order_number
+    user.password = security_key
   end
 end
