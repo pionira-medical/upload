@@ -32,6 +32,8 @@ gem "formtastic", github: "justinfrench/formtastic"
 gem "ransack", github: "activerecord-hackery/ransack", branch: "rails-4.1"
 gem "devise", github: "plataformatec/devise"
 
+gem 'rspec-rails', '~> 3.0.0.beta2', group: [:development, :test]
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.1.2'
 
