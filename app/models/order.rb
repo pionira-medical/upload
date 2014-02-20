@@ -16,7 +16,9 @@ class Order < ActiveRecord::Base
   def autocomplete_empty_fields
     self.order_number = rand(11111..99999)
     self.security_key = rand(11111..99999)
-    user.id = self.order_number
-    user.password = self.security_key
+    unless user.blank?
+      user.id = self.order_number
+      user.password = self.security_key
+    end
   end
 end
