@@ -5,7 +5,7 @@ class Order < ActiveRecord::Base
   accepts_nested_attributes_for :addresses, allow_destroy: true
   accepts_nested_attributes_for :user, allow_destroy: true
 
-  before_validation :autocomplete_empty_fields
+  after_initialize :generate_tokens
   
   validates :admin_user, :user, presence: true
   validates :order_number, uniqueness: true, numericality: true, length: { is: 5 }
@@ -13,12 +13,9 @@ class Order < ActiveRecord::Base
 
   private
 
-  def autocomplete_empty_fields
+  def generate_tokens
+    return unless self.new_record?
     self.order_number = rand(11111..99999)
     self.security_key = rand(11111..99999)
-    unless user.blank?
-      user.id = self.order_number
-      user.password = self.security_key
-    end
   end
 end

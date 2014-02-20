@@ -13,7 +13,7 @@ class OrderTest < ActiveSupport::TestCase
         first_name: 'Max',
         last_name: 'Mustermann',
         email: 'gw@example.org',
-        password: 'gw@example.org'
+        password: 'password'
     }}
 
     @addresses = [{
