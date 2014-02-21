@@ -3,7 +3,7 @@ class Order < ActiveRecord::Base
   has_one :user, dependent: :destroy
   has_many :addresses, dependent: :destroy
   accepts_nested_attributes_for :addresses, allow_destroy: true
-  accepts_nested_attributes_for :user, allow_destroy: true
+  accepts_nested_attributes_for :user, allow_destroy: false
 
   after_initialize :generate_tokens
   
