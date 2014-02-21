@@ -11,6 +11,10 @@ class Order < ActiveRecord::Base
   validates :order_number, uniqueness: true, numericality: true, length: { is: 5 }
   validates :security_key, numericality: true, length: { is: 5 }
 
+  def to_param
+    return "#{order_number}"
+  end
+
   private
 
   def generate_tokens
