@@ -1,11 +1,18 @@
 ActiveAdmin.register Order do
   menu priority: 2
   permit_params :order_number, :security_key, :description, :admin_user_id,
-                user_attributes: [:gender, :academic_title, :first_name, :last_name, :email],
+                user_attributes: [:gender, :academic_title, :first_name, :last_name, :email, :password],
                 addresses_attributes: [:title, :gender, :academic_title, :first_name, :last_name, :email, :phone, :hospital, :department, :street_1, :street_2, :zip, :city, :country, :reference]
+
+
+  controller do
+    defaults :finder => :find_by_order_number
+  end
 
   index do
     column :order_number
+    column :contact do |order| "#{order.user.academic_title} #{order.user.first_name} #{order.user.last_name}" end
+    column :admin do |order| "#{order.admin_user.email}" end
     column :created_at
     default_actions
   end
