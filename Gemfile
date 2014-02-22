@@ -31,6 +31,7 @@ gem 'polyamorous', github: 'activerecord-hackery/polyamorous'
 gem "formtastic", github: "justinfrench/formtastic"
 gem "ransack", github: "activerecord-hackery/ransack", branch: "rails-4.1"
 gem "devise", github: "plataformatec/devise"
+gem "aasm"
 
 gem 'rspec-rails', '~> 3.0.0.beta2', group: [:development, :test]
 gem 'factory_girl_rails', group: [:development, :test]
