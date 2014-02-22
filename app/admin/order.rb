@@ -21,18 +21,17 @@ ActiveAdmin.register Order do
     f.semantic_errors *f.object.errors.keys
 
     f.inputs 'Content' do
-      f.input :security_key
-      f.input :order_number
+      f.input :security_key, :input_html => { :readonly => true }
+      f.input :order_number, :input_html => { :readonly => true }
       f.input :description
       f.input :admin_user_id, as: :hidden, value: current_admin_user.id
     end
-    f.inputs 'Contact', for: [:user, f.object.build_user] do |uf|
+    f.inputs 'Contact', for: [:user, f.object.user || f.object.build_user] do |uf|
       uf.input :gender
       uf.input :academic_title
       uf.input :first_name
       uf.input :last_name
       uf.input :email
-      uf.input :id, as: :hidden, value: f.object.order_number
       uf.input :password, as: :hidden, value: f.object.security_key
     end
     f.inputs do
