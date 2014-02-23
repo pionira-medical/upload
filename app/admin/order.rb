@@ -1,8 +1,8 @@
 ActiveAdmin.register Order do
   menu priority: 2
   permit_params :order_number, :security_key, :description, :admin_user_id,
-                user_attributes: [:gender, :academic_title, :first_name, :last_name, :email, :password],
-                addresses_attributes: [:title, :gender, :academic_title, :first_name, :last_name, :email, :phone, :hospital, :department, :street_1, :street_2, :zip, :city, :country, :reference]
+                user_attributes: [:id, :gender, :academic_title, :first_name, :last_name, :email, :password],
+                addresses_attributes: [:id, :title, :gender, :academic_title, :first_name, :last_name, :email, :phone, :hospital, :department, :street_1, :street_2, :zip, :city, :country, :reference]
 
   controller do
     defaults :finder => :find_by_order_number
@@ -35,8 +35,8 @@ ActiveAdmin.register Order do
       uf.input :password, as: :hidden, value: f.object.security_key
     end
     f.inputs do
-      f.has_many :addresses, allow_destroy: true, new_record: true do |af|
-        af.input :title
+      f.has_many :addresses do |af|
+        af.input :title, as: :select, collection: ['Rechnungsadresse', 'Lieferadresse', 'Sonstiges']
         af.input :academic_title
         af.input :first_name
         af.input :last_name

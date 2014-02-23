@@ -31,7 +31,6 @@ describe Order do
     end
     it "sends a mail when the state has changed to data_received_from_user" do
       @order.data_received_from_user
-      
     end
     it "sends a mail when the state has changed" do
       @order.data_received_from_user

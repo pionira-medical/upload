@@ -4,6 +4,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
   def after_sign_in_path_for(resource)
-    order_path(current_user.order)
+    order_path(current_user.order) if current_user.present?
+    admin_dashboard_path if current_admin_user.present?
   end
 end

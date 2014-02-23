@@ -10,7 +10,12 @@
 </head>
 <body>
 
-<%= yield %>
+<div id="content" class="container <%= 'skull' unless action_name.eql?('show') %>">
+  <% flash.each do |type, message| %>
+    <div class="alert alert-<%= type %>"><%= message %></div>
+  <% end %>
+  <%= yield %>
+</div>
 
 </body>
 </html>

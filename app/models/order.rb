@@ -50,7 +50,7 @@ class Order < ActiveRecord::Base
   private
 
   def generate_tokens
-    return unless self.new_record?
+    return if self.order_number.present? && self.security_key.present?
     self.order_number = rand(11111..99999)
     self.security_key = rand(11111..99999)
   end
