@@ -16,7 +16,7 @@ Behandelnder Arzt: <%= @order.user.full_name %>
 E-Mail: <%= @order.user.email %>
 
 <% @order.addresses.each do |address| %>
-+ <%= address.type %>
++ <%= address.title %>
 ---------------------
 <%= address.hospital %>
 <%= address.academic_title %> <%= address.first_name %> <%= address.last_name %>

@@ -7,12 +7,8 @@ FactoryGirl.define do
   	admin_user
 
   	factory :order_with_addresses do
-      ignore do
-        addresses_count 2
-      end
-
-      after(:create) do |order, evaluator|
-        create_list(:address, evaluator.addresses_count, order: order)
+      before(:create) do |order, evaluator|
+        order.addresses = create_list(:address, 2, order: order)
       end
     end
   end
