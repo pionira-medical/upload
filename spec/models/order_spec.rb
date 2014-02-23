@@ -2,6 +2,7 @@ require 'spec_helper'
 
 describe Order do
   it "has a valid factory" do
+    expect(FactoryGirl.create(:order)).to be_valid
     expect(FactoryGirl.create(:order_with_addresses).addresses.size).to eq(2)
   end
   it "is invalid without a associated user" do

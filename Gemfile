@@ -2,8 +2,8 @@ source 'https://rubygems.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.1.0.rc1'
-# Use sqlite3 as the database for Active Record
-gem 'sqlite3'
+# Use mysql as the database for Active Record
+gem 'mysql2'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.1'
 # Use Uglifier as compressor for JavaScript assets
@@ -31,6 +31,8 @@ gem 'polyamorous', github: 'activerecord-hackery/polyamorous'
 gem "formtastic", github: "justinfrench/formtastic"
 gem "ransack", github: "activerecord-hackery/ransack", branch: "rails-4.1"
 gem "devise", github: "plataformatec/devise"
+
+# State Manager
 gem "aasm"
 
 gem 'rspec-rails', '~> 3.0.0.beta2', group: [:development, :test]
