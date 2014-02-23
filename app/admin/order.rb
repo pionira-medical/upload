@@ -21,8 +21,8 @@ ActiveAdmin.register Order do
     f.semantic_errors *f.object.errors.keys
 
     f.inputs 'Content' do
-      f.input :security_key, :input_html => { :readonly => true }
       f.input :order_number, :input_html => { :readonly => true }
+      f.input :security_key, :input_html => { :readonly => true }
       f.input :description
       f.input :admin_user_id, as: :hidden, value: current_admin_user.id
     end
@@ -64,6 +64,25 @@ ActiveAdmin.register Order do
       row 'Customer' do |o| "#{o.user.academic_title} #{o.user.first_name} #{o.user.last_name}" end
       row 'E-Mail' do |o| o.user.email end
       row 'Admin' do |o| o.admin_user.email end
+    end
+    panel("Addresses") do
+      attributes_table_for(order.addresses) do
+        row :title
+        row :academic_title
+        row :first_name
+        row :last_name
+        row :gender
+        row :hospital
+        row :department
+        row :street_1
+        row :street_2
+        row :zip
+        row :city
+        row :country
+        row :email
+        row :phone
+        row :reference
+      end
     end
     active_admin_comments
   end
