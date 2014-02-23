@@ -9,13 +9,14 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-
+<header>
+  <div class="container"><%= image_tag('pionira-logo.png', class: 'img-responsive') %></div>
+</header>
 <div id="content" class="container <%= 'skull' unless action_name.eql?('show') %>">
   <% flash.each do |type, message| %>
     <div class="alert alert-<%= type %>"><%= message %></div>
   <% end %>
   <%= yield %>
 </div>
-
 </body>
 </html>
