@@ -1,0 +1,27 @@
+<%= @order.user.salutation %> <%= @order.user.full_name %>
+
+vielen Dank für Ihren Auftrag.
+Für die Übertragung der Patientendaten melden Sie sich bitte mit der Auftragsnummer von PIONIRA Medical und dem Sicherheitsschlüssel auf unserer Auftragsseite an. Den Link auf unsere Auftragsseite erhalten Sie mit dieser eMail.
+
++ Ihre Auftragsseite
+---------------------
+Adresse: <%= new_user_session_url %>
+Auftragsnummer PIONIRA Medical: <%= @order.order_number %>
+Sicherheitsschlüssel: <%= @order.security_key %>
+
++ Auftragsübersicht
+---------------------
+Auftragsnummer: <%= @order.order_number %>
+Behandelnder Arzt: <%= @order.user.full_name %>
+E-Mail: <%= @order.user.email %>
+
+<% @order.addresses.each do |address| %>
++ <%= address.title %>
+---------------------
+<%= address.hospital %>
+<%= address.academic_title %> <%= address.first_name %> <%= address.last_name %>
+<%= address.department %>
+<%= address.street_1 %>
+<%= address.street_2 %>
+<%= address.zip %> <%= address.city %>
+<% end %>

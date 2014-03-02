@@ -23,24 +23,22 @@ describe Order do
     before(:each) { @order = FactoryGirl.create(:order) }
 
     it "has the initial state" do
-      expect(@order.aasm_state).to eq('created')
+      expect(@order.aasm_state).to eq('waiting_for_upload')
     end
+
+    it "has send a mail with the initial state" do
+      expect(ActionMailer::Base.deliveries.last.to).to eq([@order.user.email])
+    end
+
     it "can change the state" do
-      @order.data_received_from_user
-      expect(@order.aasm_state).to eq('data_received_from_user')
-    end
-    it "sends a mail when the state has changed to data_received_from_user" do
-      @order.data_received_from_user
+      @order.waiting_for_review
+      expect(@order.aasm_state).to eq('waiting_for_review')
     end
     it "sends a mail when the state has changed" do
-      @order.data_received_from_user
+      @order.waiting_for_review
       expect(ActionMailer::Base.deliveries.last.to).to eq([@order.admin_user.email])
-      @order.pdf_sent_to_user
-      expect(ActionMailer::Base.deliveries.last.to).to eq([@order.user.email])
-      @order.pdf_reviewed_by_user
+      @order.in_production
       expect(ActionMailer::Base.deliveries.last.to).to eq([@order.admin_user.email])
-      @order.shipped
-      expect(ActionMailer::Base.deliveries.last.to).to eq([@order.user.email])
     end
   end
 end

@@ -7,39 +7,33 @@ class Order < ActiveRecord::Base
   accepts_nested_attributes_for :user, allow_destroy: false
 
   after_initialize :generate_tokens
-  after_create do |order|
-    OrderMailer.created(order).deliver
-  end
 
   validates :admin_user, :user, presence: true
   validates :order_number, uniqueness: true, numericality: true, length: { is: 5 }
   validates :security_key, numericality: true, length: { is: 5 }
 
   aasm do
-    state :created, :initial => true
-    state :data_received_from_user
-    state :pdf_sent_to_user
-    state :pdf_reviewed_by_user
-    state :shipped
+    state :waiting_for_upload, :initial => true
+    state :waiting_for_review
+    state :in_production
+    state :invoiced
+    state :closed
 
-    event :data_received_from_user,
-          :after => Proc.new { OrderMailer.data_received_from_user(self).deliver } do
-      transitions :from => :created, :to => :data_received_from_user
+    initial_state do
+      OrderMailer.waiting_for_upload(self).deliver
+    end
+    event :waiting_for_review do
+      after do
+        OrderMailer.waiting_for_review(self).deliver
+      end
+      transitions :from => :waiting_for_upload, :to => :waiting_for_review
     end
 
-    event :pdf_sent_to_user,
-          :after => Proc.new { OrderMailer.pdf_sent_to_user(self).deliver } do
-      transitions :from => :data_received_from_user, :to => :pdf_sent_to_user
-    end
-
-    event :pdf_reviewed_by_user,
-          :after => Proc.new { OrderMailer.pdf_reviewed_by_user(self).deliver } do
-      transitions :from => :pdf_sent_to_user, :to => :pdf_reviewed_by_user
-    end
-
-    event :shipped,
-          :after => Proc.new { OrderMailer.shipped(self).deliver } do
-      transitions :from => :pdf_reviewed_by_user, :to => :shipped
+    event :in_production do
+      after do
+        OrderMailer.in_production(self).deliver
+      end
+      transitions :from => :waiting_for_review, :to => :in_production
     end
   end
 
