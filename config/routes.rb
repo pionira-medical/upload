@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
+  resources :addresses, only: [:update]
   resources :orders, param: :order_number, only: [:show]
-  
+
   devise_for :users, path: '/', path_names: { sign_in: '' }
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)

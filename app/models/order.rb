@@ -22,6 +22,7 @@ class Order < ActiveRecord::Base
     initial_state do
       OrderMailer.waiting_for_upload(self).deliver
     end
+
     event :waiting_for_review do
       after do
         OrderMailer.waiting_for_review(self).deliver
