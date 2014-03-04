@@ -1,0 +1,28 @@
+de:
+  time:
+    formats:
+      long: "%d.%m.%Y"
+  activerecord:
+    models:
+      address: Adresse
+    attributes:
+      address:
+        gender: Geschlecht
+        academic_title: Titel
+        first_name: Vorname
+        last_name: Nachname
+        full_name: Vor- Nachname
+        hospital: Krankenhaus
+        department: Abteilung
+        street_1: Straße
+        street_2: Zusatz
+        zip: Postleitzahl
+        city: Stadt
+        country: Land
+        email: E-Mail
+        phone: Telefon
+        reference: Referenznummer
+        update: Adresse aktualisieren
+  errors:
+    messages:
+      blank: Feld muss ausgefüllt sein

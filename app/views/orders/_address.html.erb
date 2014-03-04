@@ -8,83 +8,43 @@
   </div>
   <div id="order_data_address_<%= address.id %>" class="panel-collapse collapse">
     <div class="panel-body">
-      <div class="form-group">
-        <label class="control-label" for="id">Krankenhaus</label>
-        <span class="form-control"><%= address.hospital %></span>
-      </div>
-      <div class="form-group">
-        <label class="control-label" for="id">Abteilung</label>
-        <span class="form-control"><%= address.department %></span>
-      </div>
-      <div class="form-group">
-        <label class="control-label" for="id">Name</label>
-        <span class="form-control"><%= address.full_name %></span>
-      </div>
-      <div class="form-group">
-        <label class="control-label" for="id">Straße</label>
-        <span class="form-control"><%= address.street_1 %>, <%= address.street_2 %></span>
-      </div>
-      <div class="form-group">
-        <label class="control-label" for="id">PLZ, Ort</label>
-        <span class="form-control"><%= address.zip %>, <%= address.city %></span>
-      </div>
-      <div class="form-group">
-        <label class="control-label" for="id">Telefon</label>
-        <span class="form-control"><%= address.phone %></span>
-      </div>
-      <div class="form-group">
-        <label class="control-label" for="id">E-Mail</label>
-        <span class="form-control"><%= address.email %></span>
-      </div>
+      <% [:first_name, :last_name, :hospital, :department, :street_1, :street_2, :zip, :city, :phone, :email].each do |attribute| %>
+        <div class="form-group">
+          <label class="control-label"><%= Address.human_attribute_name(attribute) %></label>
+          <span class="form-control"><%= address.send(attribute) %></span>
+        </div>
+      <% end %>
     </div>
   </div>
 </div>
 
 <div class="modal fade" id="order_data_address_form_<%= address.id %>">
   <div class="modal-dialog">
-    <%= form_for(address,remote: true, html: {class: 'modal-content form-horizontal', role: 'form'}) do |f| %>
+    <%= form_for(address,remote: true, html: {class: 'modal-content', role: 'form'}) do |f| %>
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
         <h4 class="modal-dr_title">Auftrag bearbeiten</h4>
       </div>
       <div class="modal-body" style="padding-bottom: 0px;">
-        <div class="form-group">
-          <%= f.label(:first_name, t('orders.sign_in.first_name_label'), class: "col-sm-4 control-label") %>
-          <div class="col-sm-8">
-            <%= f.text_field(:first_name, class: 'form-control', placeholder: t('orders.sign_in.first_name_placeholder')) %>
+        <h4>Ansprechpartner</h4>
+        <% [:first_name, :last_name, :phone, :email].each do |attribute| %>
+          <div class="form-group col-sm-6">
+            <%= f.label(attribute, class: "control-label") %>
+            <%= f.text_field(attribute, class: 'form-control') %>
           </div>
-        </div>
-        <div class="form-group">
-          <%= f.label(:last_name, t('orders.sign_in.last_name_label'), class: "col-sm-4 control-label") %>
-          <div class="col-sm-8">
-            <%= f.text_field(:last_name, class: 'form-control', placeholder: t('orders.sign_in.last_name_placeholder')) %>
+        <% end %>
+        <h4>Anschrift</h4>
+        <% [:hospital, :department, :street_1, :street_2, :zip, :city].each do |attribute| %>
+          <div class="form-group col-sm-6">
+            <%= f.label(attribute, class: "control-label") %>
+            <%= f.text_field(attribute, class: 'form-control') %>
           </div>
-        </div>
-        <div class="form-group">
-          <%= f.label(:phone, t('orders.sign_in.phone_label'), class: "col-sm-4 control-label") %>
-          <div class="col-sm-8">
-            <%= f.text_field(:phone, class: 'form-control', placeholder: t('orders.sign_in.phone_placeholder')) %>
-            <span class="help-block"><%= t('orders.sign_in.phone_hint') %></span>
-          </div>
-        </div>
-        <div class="form-group">
-          <%= f.label(:email, t('orders.sign_in.email_label'), class: "col-sm-4 control-label") %>
-          <div class="col-sm-8">
-            <%= f.text_field(:email, class: 'form-control', placeholder: t('orders.sign_in.email_placeholder')) %>
-            <span class="help-block"><%= t('orders.sign_in.email_hint') %></span>
-          </div>
-        </div>
-        <div class="form-group">
-          <%= f.label(:reference, t('orders.sign_in.reference_label'), class: "col-sm-4 control-label") %>
-          <div class="col-sm-8">
-            <%= f.text_field(:reference, class: 'form-control', placeholder: t('orders.sign_in.reference_placeholder')) %>
-            <span class="help-block"><%= t('orders.sign_in.reference_hint') %></span>
-          </div>
-        </div>
+        <% end %>
+        <div class="clearfix"></div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Abbrechen</button>
-        <%= f.submit(t('orders.sign_in.submit'), class: 'btn btn-primary') %>
+        <%= f.submit(Address.human_attribute_name("update"), class: 'btn btn-primary') %>
       </div>
     <% end %>
   </div>
