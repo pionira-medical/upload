@@ -2,6 +2,9 @@ Rails.application.routes.draw do
   resources :addresses, only: [:update]
   resources :orders, param: :order_number, only: [:show] do
     resources :uploads, only: [:create]
+    member do
+      delete :destroy_uploads
+    end
   end
 
   devise_for :users, path: '/', path_names: { sign_in: '' }

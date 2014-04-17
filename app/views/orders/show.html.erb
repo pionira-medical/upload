@@ -13,8 +13,43 @@
           <div class="popover right in col-md-5 hidden-xs hidden-sm">
             <div class="arrow" style=""></div>
             <h3 class="popover-title"><span class="label label-success">Tipp:</span> Mehrfachauswahl</h3>
-            <div class="popover-content">Laden Sie bitte Ihre Daten hoch, indem Sie in der Ordneransicht alle Ihre Dateien markieren.</div>
+            <div class="popover-content">Markieren Sie alle Dateien gleichzeitig in der Ordneransicht.</div>
           </div>
+        </div>
+      </div>
+    </div>
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">
+          <span class="glyphicon glyphicon-cloud-upload"></span>
+          <a data-toggle="collapse" data-parent="#order_files" href="#order_file_list">Hochgeladene Dateien [<%= @order.uploads.size %>]</a>
+          <button style="float:right" type="button" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#uploadDelete">Alle Dateien löschen?</button>
+        </h3>
+      </div>
+      <div id="order_file_list" class="panel-collapse collapse">
+        <div class="panel-body" style="overflow: scroll; height: 300px;">
+          <% if @order.uploads.size > 0 %>
+              <table class="table">
+                <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Dateiname</th>
+                  <th>Format</th>
+                  <th>Größe</th>
+                </tr>
+                </thead>
+                <tbody>
+                  <% @order.uploads.each_with_index do |upload, index| %>
+                    <tr>
+                      <td><%= index+1 %></td>
+                      <td><%= upload.attachment_file_name %></td>
+                      <td><%= upload.attachment_content_type %></td>
+                      <td><%= number_to_human_size(upload.attachment_file_size) %></td>
+                    </tr>
+                  <% end %>
+                </tbody>
+              </table>
+          <% end %>
         </div>
       </div>
     </div>
@@ -25,31 +60,50 @@
     <div class="panel panel-default">
       <div class="panel-heading">
         <h3 class="panel-title">
+          <span class="glyphicon glyphicon-cloud-upload"></span>
+          <a data-toggle="collapse" data-parent="#order_data" href="#order_data_status">Status</a>
+          <button style="float:right" type="button" class="btn btn-info btn-xs"><%= @order.aasm_state %></button>
+        </h3>
+      </div>
+      <div id="order_data_status" class="panel-collapse collapse in">
+        <div class="panel-body">
+          <label class="control-label">Ihr Persönlicher Ansprechpartner</label>
+          <address>
+            <%= @order.admin_user.first_name %> <%= @order.admin_user.last_name %><br />
+            <abbr title="Phone">T:</abbr> <%= @order.admin_user.phone %><br />
+            <abbr title="Email">E:</abbr> <%= @order.admin_user.email %>
+          </address>
+        </div>
+      </div>
+    </div>
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">
           <span class="glyphicon glyphicon-pushpin"></span>
           <a data-toggle="collapse" data-parent="#order_data" href="#order_data_overview">Auftragsübersicht</a>
         </h3>
       </div>
-      <div id="order_data_overview" class="panel-collapse collapse in">
+      <div id="order_data_overview" class="panel-collapse collapse">
         <div class="panel-body">
-          <div class="form-group">
-            <label class="control-label">Status</label>
-            <span class="form-control"><%= @order.aasm_state %></span>
-          </div>
-          <div class="form-group">
+          <div class="form-group col-sm-6">
             <label class="control-label">Auftragsnummer</label>
             <span class="form-control"><%= @order.order_number %></span>
           </div>
+          <div class="form-group col-sm-6">
+            <label class="control-label">Sicherheitsschlüssel</label>
+            <span class="form-control"><%= @order.security_key %></span>
+          </div>
           <div class="form-group">
-            <label class="control-label">Kontakt</label>
+            <label class="control-label">Kontaktperson</label>
             <span class="form-control"><%= @order.user.full_name %></span>
           </div>
-          <div class="form-group">
+          <div class="form-group col-sm-6">
+            <label class="control-label">Telefon:</label>
+            <span class="form-control"><%= @order.user.phone %></span>
+          </div>
+          <div class="form-group col-sm-6">
             <label class="control-label">E-Mail:</label>
             <span class="form-control"><%= @order.user.email %></span>
-          </div>
-          <div class="form-group">
-            <label class="control-label">Ansprechpartner:</label>
-            <span class="form-control"><%= @order.admin_user.email %></span>
           </div>
         </div>
       </div>
@@ -57,7 +111,8 @@
     <%= render partial: "address", collection: @order.addresses %>
   </div>
 </div>
-
+<%= hidden_field_tag 'order_uploads_url', order_uploads_url(order_order_number: @order.order_number) %>
+<%= render partial: "upload_modals" %>
 <script type="text/template" id="qq-template-bootstrap">
   <div class="qq-uploader-selector qq-uploader span12">
     <span class="btn btn-success qq-upload-button-selector qq-upload-button">

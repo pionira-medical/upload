@@ -51,6 +51,9 @@ header {
   max-height: 780px;
   margin-top: 60px;
 }
+#order_data .col-sm-6 {
+  padding:0px;
+}
 /* Fixes for IE < 8 */
 @media screen\9 {
   .fileinput-button input {
