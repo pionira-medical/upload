@@ -8,12 +8,34 @@
   </div>
   <div id="order_data_address_<%= address.id %>" class="panel-collapse collapse">
     <div class="panel-body">
-      <% [:first_name, :last_name, :hospital, :department, :street_1, :street_2, :zip, :city, :phone, :email].each do |attribute| %>
-        <div class="form-group">
-          <label class="control-label"><%= Address.human_attribute_name(attribute) %></label>
-          <span class="form-control"><%= address.send(attribute) %></span>
-        </div>
-      <% end %>
+      <div class="form-group">
+        <label class="control-label"><%= Address.human_attribute_name(:full_name) %></label>
+        <span class="form-control"><%= address.full_name %></span>
+      </div>
+      <div class="form-group col-sm-6">
+        <label class="control-label"><%= Address.human_attribute_name(:phone) %></label>
+        <span class="form-control"><%= address.phone %></span>
+      </div>
+      <div class="form-group col-sm-6">
+        <label class="control-label"><%= Address.human_attribute_name(:email) %></label>
+        <span class="form-control"><%= address.email %></span>
+      </div>
+      <div class="form-group col-sm-6">
+        <label class="control-label"><%= Address.human_attribute_name(:hospital) %></label>
+        <span class="form-control"><%= address.hospital %></span>
+      </div>
+      <div class="form-group col-sm-6">
+        <label class="control-label"><%= Address.human_attribute_name(:department) %></label>
+        <span class="form-control"><%= address.department %></span>
+      </div>
+      <div class="form-group">
+        <label class="control-label">Anschrift</label>
+        <span class="form-control"><%= address.street_1 %> <%= address.street_2 %>, <%= address.zip %> <%= address.city %></span>
+      </div>
+      <div class="form-group">
+        <label class="control-label">Referenznummer</label>
+        <span class="form-control"><%= address.reference %></span>
+      </div>
     </div>
   </div>
 </div>
@@ -40,6 +62,11 @@
             <%= f.text_field(attribute, class: 'form-control') %>
           </div>
         <% end %>
+        <h4>Sonstiges</h4>
+        <div class="form-group col-sm-6">
+          <%= f.label(:reference, class: "control-label") %>
+          <%= f.text_field(:reference, class: 'form-control') %>
+        </div>
         <div class="clearfix"></div>
       </div>
       <div class="modal-footer">
