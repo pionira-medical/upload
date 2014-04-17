@@ -1,7 +1,7 @@
 ActiveAdmin.register Order do
   menu priority: 2
   permit_params :order_number, :security_key, :description, :admin_user_id,
-                user_attributes: [:id, :gender, :academic_title, :first_name, :last_name, :email, :password],
+                user_attributes: [:id, :gender, :academic_title, :first_name, :last_name, :email, :phone, :password],
                 addresses_attributes: [:id, :title, :gender, :academic_title, :first_name, :last_name, :email, :phone, :hospital, :department, :street_1, :street_2, :zip, :city, :country, :reference]
 
   controller do
@@ -32,6 +32,7 @@ ActiveAdmin.register Order do
       uf.input :first_name
       uf.input :last_name
       uf.input :email
+      uf.input :phone
       uf.input :password, as: :hidden, value: f.object.security_key
     end
     f.inputs do
@@ -63,6 +64,7 @@ ActiveAdmin.register Order do
       row :description
       row 'Customer' do |o| "#{o.user.academic_title} #{o.user.first_name} #{o.user.last_name}" end
       row 'E-Mail' do |o| o.user.email end
+      row 'Phone' do |o| o.user.phone end
       row 'Admin' do |o| o.admin_user.email end
     end
     panel("Addresses") do
