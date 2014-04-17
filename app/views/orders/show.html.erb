@@ -77,17 +77,25 @@
         <h3 class="panel-title">
           <span class="glyphicon glyphicon-cloud-upload"></span>
           <a data-toggle="collapse" data-parent="#order_data" href="#order_data_status">Status</a>
-          <button style="float:right" type="button" class="btn btn-info btn-xs"><%= @order.aasm_state %></button>
         </h3>
       </div>
       <div id="order_data_status" class="panel-collapse collapse in">
         <div class="panel-body">
-          <label class="control-label">Ihr Persönlicher Ansprechpartner</label>
-          <address>
-            <%= @order.admin_user.first_name %> <%= @order.admin_user.last_name %><br />
-            <abbr title="Phone">T:</abbr> <%= @order.admin_user.phone %><br />
-            <abbr title="Email">E:</abbr> <%= @order.admin_user.email %>
-          </address>
+          <div class="progress progress-striped active">
+            <div class="progress-bar progress-bar-success" style="width: 33%">
+              <span>1) Daten hochgeladen</span>
+            </div>
+            <div class="progress-bar progress-bar-warning" style="width: 25%">
+              <span>2) Wird geprüft</span>
+            </div>
+            <div class="progress-bar progress-bar-danger" style="width: 10%">
+              <span class="sr-only">In Produktion</span>
+            </div>
+          </div>
+          <blockquote>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
+          </blockquote>
+          <%= link_to 'Nächster Schritt: Daten versenden', waiting_for_review_order_url, :method => :post, :class => 'btn btn-primary btn-block' %>
         </div>
       </div>
     </div>
@@ -112,6 +120,12 @@
             <label class="control-label">Kontaktperson</label>
             <span class="form-control"><%= @order.user.full_name %></span>
           </div>
+          <label class="control-label">Ihr Persönlicher Ansprechpartner</label>
+          <address>
+            <%= @order.admin_user.first_name %> <%= @order.admin_user.last_name %><br />
+            <abbr title="Phone">T:</abbr> <%= @order.admin_user.phone %><br />
+            <abbr title="Email">E:</abbr> <%= @order.admin_user.email %>
+          </address>
         </div>
       </div>
     </div>
