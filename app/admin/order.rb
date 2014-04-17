@@ -1,6 +1,6 @@
 ActiveAdmin.register Order do
   menu priority: 2
-  permit_params :order_number, :security_key, :description, :admin_user_id,
+  permit_params :order_number, :security_key, :aasm_state, :description, :admin_user_id,
                 user_attributes: [:id, :gender, :academic_title, :first_name, :last_name, :email, :phone, :password],
                 addresses_attributes: [:id, :title, :gender, :academic_title, :first_name, :last_name, :email, :phone, :hospital, :department, :street_1, :street_2, :zip, :city, :country, :reference]
 
@@ -23,6 +23,7 @@ ActiveAdmin.register Order do
     f.inputs 'Content' do
       f.input :order_number, :input_html => { :readonly => true }
       f.input :security_key, :input_html => { :readonly => true }
+      f.input :aasm_state, as: :select, collection: [:waiting_for_upload, :waiting_for_review, :in_production, :invoiced]
       f.input :description
       f.input :admin_user_id, as: :hidden, value: current_admin_user.id
     end
@@ -62,6 +63,7 @@ ActiveAdmin.register Order do
       row :order_number
       row :security_key
       row :description
+      row :aasm_state
       row 'Customer' do |o| "#{o.user.academic_title} #{o.user.first_name} #{o.user.last_name}" end
       row 'E-Mail' do |o| o.user.email end
       row 'Phone' do |o| o.user.phone end

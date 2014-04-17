@@ -11,4 +11,9 @@ class OrdersController < ApplicationController
     order.uploads.delete_all
     redirect_to({action: :show})
   end
+
+  def waiting_for_review
+    order = current_user.order.waiting_for_review!
+    redirect_to({action: :show})
+  end
 end

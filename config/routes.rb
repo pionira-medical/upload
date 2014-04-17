@@ -4,6 +4,7 @@ Rails.application.routes.draw do
     resources :uploads, only: [:create]
     member do
       delete :destroy_uploads
+      post :waiting_for_review
     end
   end
 

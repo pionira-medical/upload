@@ -1,10 +1,12 @@
-<div class="col-sm-6" id="orderDetails">
+
+<% if @order.aasm_state == "waiting_for_upload" %>
+<div class="col-sm-6">
   <div class="panel-group" id="order_file">
     <div class="panel panel-default">
       <div class="panel-heading">
         <h3 class="panel-title">
           <span class="glyphicon glyphicon-cloud-upload"></span>
-          <a data-toggle="collapse" data-parent="#order_files" href="#order_file_upload">Daten hochladen</a>
+          <a data-toggle="collapse" data-parent="#order_files" href="#order_file_upload"><% if @order.uploads.size > 0 %>Weitere <% end %>Daten hochladen</a>
         </h3>
       </div>
       <div id="order_file_upload" class="panel-collapse collapse in">
@@ -18,44 +20,57 @@
         </div>
       </div>
     </div>
-    <div class="panel panel-default">
-      <div class="panel-heading">
-        <h3 class="panel-title">
-          <span class="glyphicon glyphicon-cloud-upload"></span>
-          <a data-toggle="collapse" data-parent="#order_files" href="#order_file_list">Hochgeladene Dateien [<%= @order.uploads.size %>]</a>
-          <button style="float:right" type="button" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#uploadDelete">Alle Dateien löschen?</button>
-        </h3>
-      </div>
-      <div id="order_file_list" class="panel-collapse collapse">
-        <div class="panel-body" style="overflow: scroll; height: 300px;">
-          <% if @order.uploads.size > 0 %>
-              <table class="table">
-                <thead>
-                <tr>
-                  <th>#</th>
-                  <th>Dateiname</th>
-                  <th>Format</th>
-                  <th>Größe</th>
-                </tr>
-                </thead>
-                <tbody>
-                  <% @order.uploads.each_with_index do |upload, index| %>
-                    <tr>
-                      <td><%= index+1 %></td>
-                      <td><%= upload.attachment_file_name %></td>
-                      <td><%= upload.attachment_content_type %></td>
-                      <td><%= number_to_human_size(upload.attachment_file_size) %></td>
-                    </tr>
-                  <% end %>
-                </tbody>
-              </table>
-          <% end %>
+    <% if @order.uploads.size > 0 %>
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">
+            <span class="glyphicon glyphicon-cloud-upload"></span>
+            <a data-toggle="collapse" data-parent="#order_files" href="#order_file_list">Hochgeladene Dateien [<%= @order.uploads.size %>]</a>
+            <button style="float:right" type="button" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#uploadDelete">Alle Dateien löschen?</button>
+          </h3>
+        </div>
+        <div id="order_file_list" class="panel-collapse collapse">
+          <div class="panel-body" style="overflow: scroll; height: 300px;">
+            <table class="table">
+              <thead>
+              <tr>
+                <th>#</th>
+                <th>Dateiname</th>
+                <th>Format</th>
+                <th>Größe</th>
+              </tr>
+              </thead>
+              <tbody>
+                <% @order.uploads.each_with_index do |upload, index| %>
+                  <tr>
+                    <td><%= index+1 %></td>
+                    <td><%= upload.attachment_file_name %></td>
+                    <td><%= upload.attachment_content_type %></td>
+                    <td><%= number_to_human_size(upload.attachment_file_size) %></td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
-    </div>
+    <% end %>
   </div>
 </div>
-<div class="col-sm-6" id="orderDetails">
+<% elsif @order.aasm_state == "waiting_for_review" %>
+<div class="col-sm-6">
+  <h2>Daten werden geprüft</h2>
+</div>
+<% elsif @order.aasm_state == "in_production" %>
+<div class="col-sm-6">
+  <h2>In Produktion</h2>
+</div>
+<% elsif @order.aasm_state == "invoiced" %>
+<div class="col-sm-6">
+  <h2>Rechnung gestellt</h2>
+</div>
+<% end %>
+<div class="col-sm-6">
   <div class="panel-group" id="order_data">
     <div class="panel panel-default">
       <div class="panel-heading">
@@ -96,14 +111,6 @@
           <div class="form-group">
             <label class="control-label">Kontaktperson</label>
             <span class="form-control"><%= @order.user.full_name %></span>
-          </div>
-          <div class="form-group col-sm-6">
-            <label class="control-label">Telefon:</label>
-            <span class="form-control"><%= @order.user.phone %></span>
-          </div>
-          <div class="form-group col-sm-6">
-            <label class="control-label">E-Mail:</label>
-            <span class="form-control"><%= @order.user.email %></span>
           </div>
         </div>
       </div>
