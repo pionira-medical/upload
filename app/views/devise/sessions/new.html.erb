@@ -12,3 +12,27 @@
     <%= f.submit "Sign in", class: 'btn btn-primary btn-lg btn-block' %>
   </div>
 <% end %>
+
+<div class="modal fade" id="modal">
+  <div class="modal-dialog">
+    <form action="/orders" post="post" class="modal-content form-horizontal" role="form">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title">Sicherheitsschlüssel neu anfordern</h4>
+      </div>
+      <div class="modal-body" style="padding-bottom: 0px;">
+        <div class="form-group">
+          <%= label_tag(:id, 'Auftragsnummer', class: "col-sm-4 control-label") %>
+          <div class="col-sm-8">
+            <%= text_field_tag(:id, @order_id, class: 'form-control', placeholder: '') %>
+            <span class="help-block">Bitte geben Sie Ihre Auftragsnummer mit ein</span>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Abbrechen</button>
+        <%= submit_tag('senden', class: 'btn btn-primary') %>
+      </div>
+    </form>
+  </div>
+</div>
