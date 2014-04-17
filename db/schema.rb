@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140222100431) do
+ActiveRecord::Schema.define(version: 20140417061704) do
 
   create_table "active_admin_comments", force: true do |t|
     t.string   "namespace"
@@ -75,6 +75,18 @@ ActiveRecord::Schema.define(version: 20140222100431) do
     t.datetime "updated_at"
     t.string   "aasm_state"
   end
+
+  create_table "uploads", force: true do |t|
+    t.integer  "order_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "attachment_file_name"
+    t.string   "attachment_content_type"
+    t.integer  "attachment_file_size"
+    t.datetime "attachment_updated_at"
+  end
+
+  add_index "uploads", ["order_id"], name: "index_uploads_on_order_id", using: :btree
 
   create_table "users", force: true do |t|
     t.string   "gender"

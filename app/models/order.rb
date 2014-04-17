@@ -3,6 +3,7 @@ class Order < ActiveRecord::Base
   belongs_to :admin_user
   has_one :user, dependent: :destroy
   has_many :addresses, dependent: :destroy
+  has_many :uploads, dependent: :destroy
   accepts_nested_attributes_for :addresses, allow_destroy: true
   accepts_nested_attributes_for :user, allow_destroy: false
 

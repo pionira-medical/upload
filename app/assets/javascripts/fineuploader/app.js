@@ -9,7 +9,7 @@ $(document).ready(function () {
     });
     $("#uploader").fineUploader({
         request: {
-            endpoint: '/'+$('#order_id').val()+'/daten',
+            endpoint: $('#order_uploads_url').val(),
             params: {
                 authenticity_token: $('meta[name=csrf-token]').attr('content')
             }
@@ -24,7 +24,7 @@ $(document).ready(function () {
         if (filesToUpload == 0) {
           $("#uploadProgress").modal('show');
         }
-        filesToUpload++;               
+        filesToUpload++;
     }).on('complete', function(event, id, filename) {
         filesUploaded++;
         $("li.qq-file-id-"+id).remove();
