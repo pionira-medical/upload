@@ -1,104 +1,12 @@
-
-<% if @order.aasm_state == "waiting_for_upload" %>
-<div class="col-sm-6">
-  <div class="panel-group" id="order_file">
-    <div class="panel panel-default">
-      <div class="panel-heading">
-        <h3 class="panel-title">
-          <span class="glyphicon glyphicon-cloud-upload"></span>
-          <a data-toggle="collapse" data-parent="#order_files" href="#order_file_upload"><% if @order.uploads.size > 0 %>Weitere <% end %>Daten hochladen</a>
-        </h3>
-      </div>
-      <div id="order_file_upload" class="panel-collapse collapse in">
-        <div class="panel-body">
-          <div id="uploader" class="col-md-6"></div>
-          <div class="popover right in col-md-5 hidden-xs hidden-sm">
-            <div class="arrow" style=""></div>
-            <h3 class="popover-title"><span class="label label-success">Tipp:</span> Mehrfachauswahl</h3>
-            <div class="popover-content">Markieren Sie alle Dateien gleichzeitig in der Ordneransicht.</div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <% if @order.uploads.size > 0 %>
-      <div class="panel panel-default">
-        <div class="panel-heading">
-          <h3 class="panel-title">
-            <span class="glyphicon glyphicon-cloud-upload"></span>
-            <a data-toggle="collapse" data-parent="#order_files" href="#order_file_list">Hochgeladene Dateien [<%= @order.uploads.size %>]</a>
-            <button style="float:right" type="button" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#uploadDelete">Alle Dateien löschen?</button>
-          </h3>
-        </div>
-        <div id="order_file_list" class="panel-collapse collapse">
-          <div class="panel-body" style="overflow: scroll; height: 300px;">
-            <table class="table">
-              <thead>
-              <tr>
-                <th>#</th>
-                <th>Dateiname</th>
-                <th>Format</th>
-                <th>Größe</th>
-              </tr>
-              </thead>
-              <tbody>
-                <% @order.uploads.each_with_index do |upload, index| %>
-                  <tr>
-                    <td><%= index+1 %></td>
-                    <td><%= upload.attachment_file_name %></td>
-                    <td><%= upload.attachment_content_type %></td>
-                    <td><%= number_to_human_size(upload.attachment_file_size) %></td>
-                  </tr>
-                <% end %>
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
-    <% end %>
-  </div>
+<div class="progress progress-striped">
+  <div class="progress-bar progress-bar-primary" style="width: 25%"><span>Datenupload</span></div>
+  <div class="progress-bar progress-bar" style="width:25%; background-color: #A3A3A3;"><span>Datenfreigabe</span></div>
+  <div class="progress-bar progress-bar" style="width:25%; background-color: #A3A3A3;"><span>In Produktion</span></div>
+  <div class="progress-bar progress-bar" style="width:25%; background-color: #A3A3A3;"><span>Versand</span></div>
 </div>
-<% elsif @order.aasm_state == "waiting_for_review" %>
-<div class="col-sm-6">
-  <h2>Daten werden geprüft</h2>
-</div>
-<% elsif @order.aasm_state == "in_production" %>
-<div class="col-sm-6">
-  <h2>In Produktion</h2>
-</div>
-<% elsif @order.aasm_state == "invoiced" %>
-<div class="col-sm-6">
-  <h2>Rechnung gestellt</h2>
-</div>
-<% end %>
+<%= render partial: @order.aasm_state %>
 <div class="col-sm-6">
   <div class="panel-group" id="order_data">
-    <div class="panel panel-default">
-      <div class="panel-heading">
-        <h3 class="panel-title">
-          <span class="glyphicon glyphicon-cloud-upload"></span>
-          <a data-toggle="collapse" data-parent="#order_data" href="#order_data_status">Status</a>
-        </h3>
-      </div>
-      <div id="order_data_status" class="panel-collapse collapse in">
-        <div class="panel-body">
-          <div class="progress progress-striped active">
-            <div class="progress-bar progress-bar-success" style="width: 33%">
-              <span>1) Daten hochgeladen</span>
-            </div>
-            <div class="progress-bar progress-bar-warning" style="width: 25%">
-              <span>2) Wird geprüft</span>
-            </div>
-            <div class="progress-bar progress-bar-danger" style="width: 10%">
-              <span class="sr-only">In Produktion</span>
-            </div>
-          </div>
-          <blockquote>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
-          </blockquote>
-          <%= link_to 'Nächster Schritt: Daten versenden', waiting_for_review_order_url, :method => :post, :class => 'btn btn-primary btn-block' %>
-        </div>
-      </div>
-    </div>
     <div class="panel panel-default">
       <div class="panel-heading">
         <h3 class="panel-title">
@@ -106,19 +14,15 @@
           <a data-toggle="collapse" data-parent="#order_data" href="#order_data_overview">Auftragsübersicht</a>
         </h3>
       </div>
-      <div id="order_data_overview" class="panel-collapse collapse">
+      <div id="order_data_overview" class="panel-collapse collapse in">
         <div class="panel-body">
-          <div class="form-group col-sm-6">
+          <div class="form-group col-md-6 col-pad-right">
             <label class="control-label">Auftragsnummer</label>
             <span class="form-control"><%= @order.order_number %></span>
           </div>
-          <div class="form-group col-sm-6">
+          <div class="form-group col-md-6 col-pad-left">
             <label class="control-label">Sicherheitsschlüssel</label>
             <span class="form-control"><%= @order.security_key %></span>
-          </div>
-          <div class="form-group">
-            <label class="control-label">Kontaktperson</label>
-            <span class="form-control"><%= @order.user.full_name %></span>
           </div>
           <label class="control-label">Ihr Persönlicher Ansprechpartner</label>
           <address>

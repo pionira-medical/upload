@@ -51,7 +51,7 @@ header {
   max-height: 780px;
   margin-top: 60px;
 }
-#order_data .col-sm-6 {
+#order_data .col-sm-6, #order_data .col-md-6 {
   padding:0px;
 }
 /* Fixes for IE < 8 */
@@ -70,3 +70,11 @@ footer {
 }
 .progress { height: 35px !important; }
 .progress-bar { line-height: 35px !important; }
+@media (min-width: 992px) {
+  .panel-body > .col-pad-right { padding-right: 7px !important; }
+  .panel-body > .col-pad-left { padding-left: 7px !important; }
+}
+@media (min-width: 768px) {
+  .modal-body > .col-pad-right { padding-right: 7px !important; }
+  .modal-body > .col-pad-left { padding-left: 7px !important; }
+}
